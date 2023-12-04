@@ -1,4 +1,5 @@
 import { Robot } from "@/types/robot";
+import Link from "next/link";
 import { useState } from "react";
 import { FaHeartBroken } from "react-icons/fa";
 import { GrTarget } from "react-icons/gr";
@@ -10,7 +11,9 @@ const Card = ({ robot }: { robot: Robot }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
+    <Link
+      href={`/robots/${robot.id}`}
+      passHref
       className={`border  duration-200 ease-in-out relative rounded-2xl p-4 w-72 h-96 shadow-blue cursor-pointer `.concat(
         isHovered ? "border-2 border-blue-800 shadow-blueLg" : "border-0"
       )}
@@ -42,17 +45,21 @@ const Card = ({ robot }: { robot: Robot }) => {
         <>
           <div className="absolute  w-full h-full top-0 left-0 flex flex-col bg-blue-800 bg-opacity-50 rounded-xl shadow-inner">
             <div className="flex justify-center h-full w-full items-center">
-              <button className="rounded-full w-auto  p-2 border ">
+              <Link
+                className="rounded-full w-auto  p-2 border "
+                href={`/robots/${robot.id}`}
+                passHref
+              >
                 <IoMdSearch
                   className="text-neutral-200   duration-200 ease-in"
                   size={48}
                 />
-              </button>
+              </Link>
             </div>
           </div>
         </>
       )}
-    </div>
+    </Link>
   );
 };
 
