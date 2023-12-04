@@ -10,10 +10,5 @@
 body {
   font-family: "Lexend Mega";
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #e2e8f0;
 }
