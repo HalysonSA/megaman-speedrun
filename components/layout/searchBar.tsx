@@ -9,6 +9,10 @@ const SearchBar = () => {
   const fetchData = useCallback(async () => {
     router.query.search = searchTerm;
     if (searchTerm !== undefined) {
+      if (searchTerm === "") {
+        router.push(router);
+        return;
+      }
       router.push(`/?search=${searchTerm}`);
     }
   }, [searchTerm]);

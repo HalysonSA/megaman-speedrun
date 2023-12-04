@@ -63,7 +63,15 @@ const RobotsCollection = () => {
           </p>
         </div>
       )}
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-8 mt-24 font-mega  ">
+      {robots?.length === 0 && (
+        <div className="w-full h-auto mt-24 flex flex-row justify-center items-center">
+          <MdError className="text-blue-500" size={64} />
+          <p className="text-3xl pl-2 font-bold font-mega text-blue-500">
+            No results found
+          </p>
+        </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-8 md:grid-cols-3 lg:grid-cols-4  mt-36 font-mega  ">
         {data && robots?.map((robot) => <Card key={robot.id} robot={robot} />)}
       </div>
     </>
