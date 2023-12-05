@@ -5,6 +5,9 @@ import useSWR from "swr";
 import { VscLoading } from "react-icons/vsc";
 import { MdError } from "react-icons/md";
 import { useRouter } from "next/router";
+import ErrorAlert from "../results/error";
+import Loading from "../results/loading";
+import NoResults from "../results/noResults";
 
 const RobotsCollection = () => {
   const [robots, setRobots] = useState<Robot[]>([]);
@@ -49,32 +52,14 @@ const RobotsCollection = () => {
   }, [search]);
 
   return (
-    <>
-      {isLoading && (
-        <div className="w-full h-auto mt-24 flex justify-center items-center">
-          <VscLoading className="animate-spin text-blue-800" size={64} />
-        </div>
-      )}
-      {error && (
-        <div className="w-full h-auto mt-24 flex flex-row justify-center items-center">
-          <MdError className="text-red-500" size={64} />
-          <p className="text-3xl pl-2 font-bold font-mega text-red-500">
-            Error loading data
-          </p>
-        </div>
-      )}
-      {robots?.length === 0 && (
-        <div className="w-full h-auto mt-24 flex flex-row justify-center items-center">
-          <MdError className="text-blue-500" size={64} />
-          <p className="text-3xl pl-2 font-bold font-mega text-blue-500">
-            No results found
-          </p>
-        </div>
-      )}
-      <div className="grid grid-cols-1 sm:grid-cols-2  gap-8 md:grid-cols-3 lg:grid-cols-4  mt-36 font-mega  ">
+    <div className="w-full mt-36">
+      {isLoading && <Loading />}
+      {error && <ErrorAlert error="Error fetching data" />}
+      {robots?.length === 0 && <NoResults />}
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-8 md:grid-cols-3 lg:grid-cols-4   font-mega  ">
         {data && robots?.map((robot) => <Card key={robot.id} robot={robot} />)}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -2,13 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  font-family: "Lexend Mega", sans-serif;
+}
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: #e2e8f0;
+}
+
 .text-stroke {
   color: #ffffff;
   -webkit-text-stroke: 1px #000000;
 }
 
-body {
-  font-family: "Lexend Mega";
-  color: rgb(var(--foreground-rgb));
-  background-color: #e2e8f0;
+table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-top: -8px;
+}
+
+tr {
+  text-align: center;
+  background-color: #ffffff;
+  margin-top: 10px;
+}
+td {
+  padding: 8px;
+}
+
+tr td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+tr td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+tr th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+tr th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+tr:nth-child(even) {
+  padding: 8px;
+  background-color: #dddddd;
 }

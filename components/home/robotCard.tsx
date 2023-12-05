@@ -48,15 +48,15 @@ const Card = ({ robot }: { robot: Robot }) => {
 
       {isHovered && (
         <>
-          <div className="absolute  w-full h-full top-0 left-0 flex flex-col bg-blue-800 bg-opacity-50 rounded-xl shadow-inner">
-            <div className="flex justify-center h-full w-full items-center">
+          <div className="absolute  w-full h-full top-0 left-0 flex flex-col bg-blue-800 bg-opacity-20 rounded-xl shadow-inner">
+            <div className="flex justify-end h-full w-full items-start">
               <Link
-                className="rounded-full w-auto  p-2 border "
+                className="rounded-full w-auto  p-2 border mr-2 mt-2 border-blue-800 "
                 href={`/robots/${robot.id}`}
                 passHref
               >
                 <IoMdSearch
-                  className="text-neutral-200   duration-200 ease-in"
+                  className="text-blue-800 duration-200 ease-in"
                   size={48}
                 />
               </Link>
