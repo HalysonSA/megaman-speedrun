@@ -19,25 +19,26 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="block sm:hidden ">
+        <div className="block sm:hidden px-4">
           <button type="button" onClick={() => setShowMenu(!showMenu)}>
             <GiHamburgerMenu className="text-white text-3xl cursor-pointer" />
           </button>
         </div>
         {!showMenu && (
-          <div className="hidden sm:flex sm:flex-row items-center justify-center sm:justify-between w-full sm:w-auto">
-            <div>
-              <SearchBar />
-            </div>
-            <div className="sm:my-0 my-4 mx-2">
-              <Link
-                href={"/profile"}
-                passHref
-                className="text-stroke font-bold text-xl cursor-pointer px-4"
-              >
-                Profile
-              </Link>
-            </div>
+          <div className="hidden sm:flex">
+            <SearchBar />
+          </div>
+        )}
+
+        {!showMenu && (
+          <div className="hidden sm:flex">
+            <Link
+              href={"/profile"}
+              passHref
+              className="text-stroke font-bold text-xl cursor-pointer px-4"
+            >
+              Profile
+            </Link>
           </div>
         )}
 

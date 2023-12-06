@@ -2,17 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(undefined as string | undefined);
 
   const router = useRouter();
 
   const fetchData = useCallback(async () => {
-    router.query.search = searchTerm;
     if (searchTerm !== undefined) {
-      if (searchTerm === "") {
-        return;
-      }
-      router.push(`/?search=${searchTerm}`);
+      router.push({
+        pathname: "/",
+        query: { search: searchTerm },
+      });
     }
   }, [searchTerm]);
 
