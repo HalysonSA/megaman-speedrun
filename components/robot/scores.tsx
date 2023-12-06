@@ -1,6 +1,14 @@
 "use client";
 import { Robot } from "@/types/robot";
 import { User } from "@/types/user";
+import axios from "@/api/axios";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface FormValues {
+  damageTaken: number;
+  time: number;
+}
 
 const RobotScores = ({
   data,
@@ -12,6 +20,43 @@ const RobotScores = ({
     robotMaster: Robot;
   }[];
 }) => {
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit = handleSubmit((e) => {
+    const { damageTaken, time } = e;
+
+    const body = {
+      damageTaken,
+      time: "00:" + time,
+      id: data[0].robotMaster.id,
+    };
+
+    axios
+      .post("/robotlist/save", body, {
+        headers: {
+          "Content-Type": "application/json",
+          "allow-origin": "*",
+          "Access-Control-Allow-Origin": "*",
+        },
+        auth: {
+          username: "dudu",
+          password: "12345",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   return (
     <div className="flex flex-col items-center sm:w-3/5">
       <div className="flex flex-row justify-center items-center w-full">
@@ -27,7 +72,7 @@ const RobotScores = ({
             </tr>
             {data?.map((score) => {
               return (
-                <tr className=" h-12 ">
+                <tr className=" h-12" key={score.robotMaster.id}>
                   <td>{score.time}</td>
                   <td>{score.damageTaken}</td>
                   <td>{score.user.username}</td>
@@ -37,6 +82,49 @@ const RobotScores = ({
           </tbody>
         </table>
       </div>
+      <div className="flex flex-row justify-start items-center w-full">
+        <button
+          className="bg-blue-800 rounded-lg w-48 h-12 text-white"
+          onClick={() => {
+            setOpenMenu(!openMenu);
+          }}
+        >
+          Add Score
+        </button>
+      </div>
+
+      {openMenu && (
+        <form
+          className="bg-white w-full flex flex-col gap-2 p-4 rounded-2xl mt-2"
+          onSubmit={onSubmit}
+        >
+          <div className="flex items-start flex-col justify-end">
+            <h1 className="text-md text-center">Damage Taken</h1>
+            <input
+              {...register("damageTaken", { required: true })}
+              className="w-full h-12 border p-2 border-blue-800 rounded-lg focus:outline-none"
+              placeholder="how much damage you took"
+              type="number"
+            />
+          </div>
+          <div className="flex items-start flex-col justify-end">
+            <h1 className="text-md text-center">Time</h1>
+            <input
+              {...register("time", { required: true })}
+              className="w-full h-12 border p-2 border-blue-800 rounded-lg focus:outline-none"
+              placeholder="Time"
+              type="time"
+            />
+          </div>
+          <div className="flex justify-end">
+            <input
+              type="submit"
+              value="Save"
+              className="bg-blue-800 rounded-lg w-48 h-12 text-white hover:cursor-pointer"
+            />
+          </div>
+        </form>
+      )}
     </div>
   );
 };

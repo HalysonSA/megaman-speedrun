@@ -17,7 +17,7 @@ const Card = ({ robot }: { robot: Robot }) => {
       onClick={() => {
         router && router.push(`/robots/${robot.id}`);
       }}
-      className={`border bg-white  duration-200 ease-in-out relative rounded-2xl p-4 h-96 shadow-blue cursor-pointer `.concat(
+      className={`border bg-white max-w-md  duration-200 ease-in-out relative rounded-2xl p-4 h-96 shadow-blue cursor-pointer  `.concat(
         isHovered ? "border-2 border-blue-800 shadow-blueLg" : "border-0"
       )}
       onMouseEnter={() => setIsHovered(true)}

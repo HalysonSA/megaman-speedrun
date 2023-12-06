@@ -18,7 +18,7 @@ const config: Config = {
       },
       boxShadow: {
         blue: "0px 5px 10px 0px #1E40AF",
-        blueLg: "0px 10px 20px 0px #1E40AF",
+        blueLg: "0px 5px 40px 0px #1E40AF",
       },
     },
   },

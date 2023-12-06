@@ -7,7 +7,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <div className="fixed z-50 font-mega flex justify-center top-8 w-11/12  p-2 h-auto sm:h-[80px] bg-blue-800 rounded-3xl">
+    <div className="fixed z-50 font-mega max-w-7xl flex justify-center top-8 w-11/12  p-2 h-auto sm:h-[80px] bg-blue-800 rounded-3xl">
       <div className="w-full flex flex-row flex-wrap items-center justify-between px-2 sm:px-8 py-2">
         <div>
           <Link

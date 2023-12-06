@@ -52,7 +52,7 @@ const RobotsCollection = () => {
   }, [search]);
 
   return (
-    <div className="w-full mt-36">
+    <div className="w-full mt-36 mb-8 max-w-7xl">
       {isLoading && <Loading />}
       {error && <ErrorAlert error="Error fetching data" />}
       {robots?.length === 0 && <NoResults />}

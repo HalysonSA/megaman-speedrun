@@ -5,22 +5,22 @@ import { MdOutlineBookmark } from "react-icons/md";
 
 const RobotDetails = ({ data }: { data: Robot }) => {
   return (
-    <div className="flex flex-col items-start max-w-2xl sm:w-2/5">
+    <div className="flex flex-col items-start max-w-2xl sm:w-2/5 ">
       <div className="flex flex-row justify-between items-center w-full">
         <h1 className="text-4xl  text-stroke font-bold">{data.name}</h1>
       </div>
 
-      <div className="flex flwx-row my-4 overflow-x-auto bg-white ">
+      <div className="flex flex-col my-4 w-full overflow-x-auto bg-white rounded-2xl ">
         <img
           src={data.avatar}
           alt="robot1"
-          className="w-44 h-44 md:w-80 md:h-80 object-contain rounded-sm mx-auto"
+          className="w-full h-80  object-cover rounded-sm mx-auto"
         />
 
         <img
           src={data.sprite}
           alt="robot1"
-          className=" w-44 h-44 md:w-80 md:h-80 object-contain rounded-sm mx-auto"
+          className=" w-full h-80 object-contain rounded-sm mx-auto"
         />
       </div>
 
