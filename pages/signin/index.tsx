@@ -48,9 +48,9 @@ const SignIn = () => {
       });
   });
   return (
-    <div className="flex justify-center items-center w-full min-h-screen px-12 py-8 h-screen">
-      <div className="w-full h-5/6 relative bg-white rounded-2xl grid grid-cols-2 shadow-2xl">
-        <div className="bg-blue-800 flex flex-col justify-center items-center scale-105 rounded-3xl ">
+    <div className="flex justify-center items-center w-full min-h-screen px-2 sm:px-12  py-8 h-screen">
+      <div className="w-full h-5/6 relative bg-white rounded-2xl grid lg:grid-cols-2 shadow-2xl">
+        <div className="bg-blue-800 hidden  lg:flex flex-col  justify-center items-center scale-105 rounded-3xl ">
           <div className="text-white z-10">
             <h1 className="text-3xl font-bold">WELCOME BACK!</h1>
             <p className="text-lg">Don't have an account?</p>
@@ -70,7 +70,10 @@ const SignIn = () => {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          <form onSubmit={onSubmit} className="flex flex-col gap-4 w-8/12">
+          <form
+            onSubmit={onSubmit}
+            className="flex flex-col gap-4 w-10/12 sm:w-8/12"
+          >
             <h1 className="text-4xl font-bold text-blue-800 my-4">Sign In</h1>
             <div className="flex flex-col justify-start">
               <label htmlFor="username" className="text-2xl">
@@ -134,6 +137,18 @@ const SignIn = () => {
                 )}
               </button>
             </div>
+            <div className="sm:hidden flex flex-row justify-center items-center">
+              <span className="border-b border-black w-1/3"></span>
+              <span className="text-xl mx-4">OR</span>
+              <span className="border-b border-black w-1/3"></span>
+            </div>
+
+            <Link className="sm:hidden flex" passHref href={"/signup"}>
+              <p className="text-gray-800">
+                Don't have an account?{" "}
+                <b className="text-blue-800"> sign up </b>
+              </p>
+            </Link>
           </form>
         </div>
       </div>
