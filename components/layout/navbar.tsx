@@ -1,10 +1,21 @@
 import Link from "next/link";
 import SearchBar from "./searchBar";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "@/context/user";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+
+  const router = useRouter();
+
+  const { user } = useContext(UserContext);
+
+  const goToProfile = () => {
+    if (!user.username) return router.push("/signin");
+    router.push("/profile");
+  };
 
   return (
     <div className="fixed z-50 font-mega max-w-7xl flex justify-center top-8 w-11/12  p-2 h-auto sm:h-[80px] bg-blue-800 rounded-3xl">
@@ -32,13 +43,12 @@ const Navbar = () => {
 
         {!showMenu && (
           <div className="hidden sm:flex">
-            <Link
-              href={"/profile"}
-              passHref
+            <button
+              onClick={goToProfile}
               className="text-stroke font-bold text-xl cursor-pointer px-4"
             >
               Profile
-            </Link>
+            </button>
           </div>
         )}
 
@@ -48,13 +58,12 @@ const Navbar = () => {
               <SearchBar />
             </div>
             <div className="sm:my-0 my-4 mx-2">
-              <Link
-                href={"/profile"}
-                passHref
+              <button
+                onClick={goToProfile}
                 className="text-stroke font-bold text-xl cursor-pointer px-4"
               >
                 Profile
-              </Link>
+              </button>
             </div>
           </div>
         )}

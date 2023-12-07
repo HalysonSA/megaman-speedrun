@@ -1,3 +1,4 @@
+import Layout from "@/components/layout";
 import ErrorAlert from "@/components/results/error";
 import Loading from "@/components/results/loading";
 import NoResults from "@/components/results/noResults";
@@ -17,17 +18,19 @@ const RobotDetailsPage = ({
   isLoading: boolean;
 }) => {
   return (
-    <div className="w-11/12 mt-36 mb-8 max-w-7xl font-mega select-none">
-      {isLoading && <Loading />}
-      {error && <ErrorAlert error="Error fetching data" />}
-      {data != null && (
-        <div className="flex flex-col md:flex-row gap-4 w-full ">
-          <RobotDetails data={data} />
-          <RobotScores data={dataScores} />
-        </div>
-      )}
-      {data == null && !isLoading && !error && <NoResults />}
-    </div>
+    <Layout>
+      <div className="w-11/12 mt-36 mb-8 max-w-7xl font-mega select-none">
+        {isLoading && <Loading />}
+        {error && <ErrorAlert error="Error fetching data" />}
+        {data != null && (
+          <div className="flex flex-col md:flex-row gap-4 w-full ">
+            <RobotDetails data={data} />
+            <RobotScores data={dataScores} />
+          </div>
+        )}
+        {data == null && !isLoading && !error && <NoResults />}
+      </div>
+    </Layout>
   );
 };
 

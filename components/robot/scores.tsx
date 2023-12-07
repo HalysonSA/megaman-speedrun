@@ -4,6 +4,7 @@ import { User } from "@/types/user";
 import axios from "@/api/axios";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/router";
 
 interface FormValues {
   damageTaken: number;
@@ -20,7 +21,10 @@ const RobotScores = ({
     robotMaster: Robot;
   }[];
 }) => {
+  const router = useRouter();
+
   const [openMenu, setOpenMenu] = useState(false);
+  const id = router.query.id;
 
   const {
     register,
@@ -28,22 +32,17 @@ const RobotScores = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit = handleSubmit((e) => {
-    const { damageTaken, time } = e;
+  const onSubmit = handleSubmit((data) => {
+    const { damageTaken, time } = data;
 
     const body = {
       damageTaken,
       time: "00:" + time,
-      id: data[0].robotMaster.id,
+      id: id,
     };
 
     axios
       .post("/robotlist/save", body, {
-        headers: {
-          "Content-Type": "application/json",
-          "allow-origin": "*",
-          "Access-Control-Allow-Origin": "*",
-        },
         auth: {
           username: "dudu",
           password: "12345",
