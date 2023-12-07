@@ -2,9 +2,10 @@
 import { Robot } from "@/types/robot";
 import { User } from "@/types/user";
 import axios from "@/api/axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
+import { UserContext } from "@/context/user";
 
 interface FormValues {
   damageTaken: number;
@@ -22,9 +23,17 @@ const RobotScores = ({
   }[];
 }) => {
   const router = useRouter();
-
-  const [openMenu, setOpenMenu] = useState(false);
   const id = router.query.id;
+  const [currentUser, setCurrentUser] = useState<User>({} as User);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user.username) {
+      setCurrentUser(user);
+    }
+  }, []);
 
   const {
     register,
@@ -81,18 +90,21 @@ const RobotScores = ({
           </tbody>
         </table>
       </div>
-      <div className="flex flex-row justify-start items-center w-full">
-        <button
-          className="bg-blue-800 rounded-lg w-48 h-12 text-white"
-          onClick={() => {
-            setOpenMenu(!openMenu);
-          }}
-        >
-          Add Score
-        </button>
-      </div>
 
-      {openMenu && (
+      {currentUser.username && (
+        <div className="flex flex-row justify-start items-center w-full">
+          <button
+            className="bg-blue-800 rounded-lg w-48 h-12 text-white"
+            onClick={() => {
+              setOpenMenu(!openMenu);
+            }}
+          >
+            Add Score
+          </button>
+        </div>
+      )}
+
+      {openMenu && currentUser.name && (
         <form
           className="bg-white w-full flex flex-col gap-2 p-4 rounded-2xl mt-2"
           onSubmit={onSubmit}

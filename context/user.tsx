@@ -12,6 +12,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setMyUser] = useState<User>({} as User);
 
   const setUser = (user: User) => {
+    localStorage.setItem("user", JSON.stringify(user));
     setMyUser(user);
   };
 
