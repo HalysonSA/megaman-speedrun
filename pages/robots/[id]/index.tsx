@@ -4,6 +4,7 @@ import Loading from "@/components/results/loading";
 import NoResults from "@/components/results/noResults";
 import RobotDetails from "@/components/robot/details";
 import RobotScores from "@/components/robot/scores";
+import { DefeatedRobot } from "@/pages/profile";
 import { Robot } from "@/types/robot";
 
 const RobotDetailsPage = ({
@@ -13,7 +14,7 @@ const RobotDetailsPage = ({
   isLoading,
 }: {
   data: Robot;
-  dataScores: any;
+  dataScores: DefeatedRobot[];
   error: string;
   isLoading: boolean;
 }) => {

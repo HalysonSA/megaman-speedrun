@@ -1,47 +1,45 @@
 "use client";
-import { Robot } from "@/types/robot";
-import { User } from "@/types/user";
 import axios from "@/api/axios";
 import { useContext, useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { UserContext } from "@/context/user";
+import { toast } from "react-toastify";
+import { DefeatedRobot } from "@/pages/profile";
+import NoResults from "../results/noResults";
 
 interface FormValues {
   damageTaken: number;
   time: number;
 }
 
-const RobotScores = ({
-  data,
-}: {
-  data: {
-    time: number;
-    damageTaken: number;
-    user: User;
-    robotMaster: Robot;
-  }[];
-}) => {
+const RobotScores = ({ data }: { data: DefeatedRobot[] }) => {
   const router = useRouter();
   const id = router.query.id;
-  const [currentUser, setCurrentUser] = useState<User>({} as User);
+
   const [openMenu, setOpenMenu] = useState(false);
+  const [isDefeated, setIsDefeated] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    if (user.username) {
-      setCurrentUser(user);
-    }
-  }, []);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
 
+  useEffect(() => {
+    if (data) {
+      data.map((score) => {
+        if (score.user.username === user.username) {
+          setIsDefeated(true);
+        }
+      });
+    }
+  }, [user]);
+
   const onSubmit = handleSubmit((data) => {
+    setLoading(true);
     const { damageTaken, time } = data;
 
     const body = {
@@ -50,18 +48,23 @@ const RobotScores = ({
       id: id,
     };
 
-    axios
-      .post("/robotlist/save", body, {
-        auth: {
-          username: "dudu",
-          password: "12345",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+    toast
+      .promise(
+        axios.post("/robotlist/save", body, {
+          auth: {
+            username: user.username,
+            password: user.password,
+          },
+        }),
+        {
+          pending: "Saving...",
+          success: "Score saved",
+          error: "Error saving score",
+        }
+      )
+      .finally(() => {
+        setLoading(false);
+        router.reload();
       });
   });
 
@@ -78,20 +81,26 @@ const RobotScores = ({
               <th>Damage Taken</th>
               <th>User</th>
             </tr>
-            {data?.map((score) => {
-              return (
-                <tr className=" h-12" key={score.robotMaster.id}>
-                  <td>{score.time}</td>
-                  <td>{score.damageTaken}</td>
-                  <td>{score.user.username}</td>
-                </tr>
-              );
-            })}
+            {data.length === 0 ? (
+              <NoResults />
+            ) : (
+              data?.map((score) => {
+                const { time, damageTaken } = score;
+
+                return (
+                  <tr className=" h-12" key={score.robotMaster.id}>
+                    <td>{time}</td>
+                    <td>{damageTaken}</td>
+                    <td>{score.user.username}</td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
 
-      {currentUser.username && (
+      {user.username && !isDefeated && (
         <div className="flex flex-row justify-start items-center w-full">
           <button
             className="bg-blue-800 rounded-lg w-48 h-12 text-white"
@@ -104,7 +113,7 @@ const RobotScores = ({
         </div>
       )}
 
-      {openMenu && currentUser.name && (
+      {openMenu && user.name && (
         <form
           className="bg-white w-full flex flex-col gap-2 p-4 rounded-2xl mt-2"
           onSubmit={onSubmit}
@@ -130,7 +139,7 @@ const RobotScores = ({
           <div className="flex justify-end">
             <input
               type="submit"
-              value="Save"
+              value={isLoading ? "Saving..." : "Save"}
               className="bg-blue-800 rounded-lg w-48 h-12 text-white hover:cursor-pointer"
             />
           </div>

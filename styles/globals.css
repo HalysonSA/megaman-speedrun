@@ -30,6 +30,7 @@ tr {
 }
 td {
   padding: 8px;
+  min-width: 100px;
 }
 
 tr td:first-child {

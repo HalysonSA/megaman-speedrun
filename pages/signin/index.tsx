@@ -27,10 +27,20 @@ const SignIn = () => {
   const onSubmit = handleSubmit((data) => {
     setIsLoading(true);
 
+    const body = {
+      username: data.username,
+      password: data.password,
+    };
+
     axios
-      .post("/users/login", data)
+      .post("/users/login", body)
       .then((res) => {
-        setUser(res.data);
+        setUser({
+          username: res.data.username,
+          name: res.data.name,
+          password: data.password,
+        });
+
         toast.success("Login realizado com sucesso!");
         setTimeout(() => {
           window.location.href = "/";
