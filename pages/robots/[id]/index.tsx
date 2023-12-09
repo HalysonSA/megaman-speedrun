@@ -94,6 +94,7 @@ export async function getStaticProps({ params }: any) {
           error: null,
           isLoading: false,
         },
+        revalidate: 15, // In seconds
       };
     } else {
       return {
