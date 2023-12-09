@@ -12,7 +12,7 @@ interface SignUpFormValues {
   password: string;
 }
 
-const signup = () => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -163,4 +163,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default SignUp;
