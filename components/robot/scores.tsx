@@ -64,7 +64,6 @@ const RobotScores = ({ data }: { data: DefeatedRobot[] }) => {
       )
       .finally(() => {
         setLoading(false);
-        router.reload();
       });
   });
 
@@ -145,6 +144,12 @@ const RobotScores = ({ data }: { data: DefeatedRobot[] }) => {
           </div>
         </form>
       )}
+      <div className=" text-gray-600">
+        <p>
+          <span className="font-bold">Note:</span> you see your scores on your
+          profile
+        </p>
+      </div>
     </div>
   );
 };

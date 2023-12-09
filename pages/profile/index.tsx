@@ -97,7 +97,7 @@ const ProfilePage = () => {
         <div className="flex flex-col w-full my-4 overflow-scroll xl:overflow-hidden">
           {isLoading ? (
             <Loading />
-          ) : defeatedRobots.length === 0 ? (
+          ) : !defeatedRobots || defeatedRobots?.length === 0 ? (
             <NoResults />
           ) : (
             <table>

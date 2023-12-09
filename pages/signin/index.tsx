@@ -59,7 +59,7 @@ const SignIn = () => {
   });
   return (
     <div className="flex justify-center items-center w-full min-h-screen px-2 sm:px-12  py-8 h-screen">
-      <div className="w-full h-5/6 relative bg-white rounded-2xl grid lg:grid-cols-2 shadow-2xl">
+      <div className="w-full h-5/6 relative bg-white rounded-2xl grid lg:grid-cols-2 shadow-2xl max-w-7xl max-h-[900px]">
         <div className="bg-blue-800 hidden  lg:flex flex-col  justify-center items-center scale-105 rounded-3xl ">
           <div className="text-white z-10">
             <h1 className="text-3xl font-bold">WELCOME BACK!</h1>
@@ -147,13 +147,13 @@ const SignIn = () => {
                 )}
               </button>
             </div>
-            <div className="sm:hidden flex flex-row justify-center items-center">
+            <div className="lg:hidden flex flex-row justify-center items-center">
               <span className="border-b border-black w-1/3"></span>
               <span className="text-xl mx-4">OR</span>
               <span className="border-b border-black w-1/3"></span>
             </div>
 
-            <Link className="sm:hidden flex" passHref href={"/signup"}>
+            <Link className="lg:hidden flex" passHref href={"/signup"}>
               <p className="text-gray-800">
                 Don't have an account?{" "}
                 <b className="text-blue-800"> sign up </b>
